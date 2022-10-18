@@ -1,7 +1,9 @@
 export default (io, socket) => {
   const createdMessage = (msg) => {
-    socket.broadcast.emit("newIncomingMessage", msg);
+    console.log(msg.toUser);
   };
 
-  socket.on("createdMessage", createdMessage);
+  socket.on("send-message", (msg) => {
+    socket.to(msg.toUser).emit("reveice-message", msg);
+  });
 };
